@@ -13,10 +13,10 @@ contract POC {
         weth = IWETH(_weth);
     }
 
-    function send(uint256 amount) public payable {
-        weth.deposit{value: amount}();
-        weth.withdraw(amount);
-        (bool success,) = msg.sender.call{value: amount}("");
+    function execute() public payable {
+        weth.deposit{value: msg.value}();
+        weth.withdraw(msg.value);
+        (bool success,) = msg.sender.call{value: msg.value}("");
         require(success, "Transfer failed");
     }
 
